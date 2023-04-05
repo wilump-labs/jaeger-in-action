@@ -46,3 +46,16 @@ kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operato
 
 kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operator/master/deploy/cluster_role_binding.yaml
 ```
+
+## Reference
+- jaeger-getting-started: https://www.jaegertracing.io/docs/1.43/getting-started/
+- what is jaeger: https://blog.advenoh.pe.kr/cloud/Jaeger%EC%97%90-%EB%8C%80%ED%95%9C-%EC%86%8C%EA%B0%9C/
+- jaeger installation: https://blog.naver.com/alice_k106/221832024817
+  - jaeger with istio: https://m.blog.naver.com/freepsw/221945686208
+    - https://istio.io/latest/docs/tasks/observability/distributed-tracing/overview/
+  - https://twofootdog.tistory.com/74
+    - https://twofootdog.tistory.com/67
+  - jaeger with golang: https://litaro.tistory.com/entry/Jaeger-with-Go
+- jaeger-k8s: https://blog.karsei.pe.kr/m/50
+- jaeger-operator: https://blog.karsei.pe.kr/52
+  - https://www.oss.kr/storage/app/public/oss/9f/ca/[Jaeger]%20Solution%20Guide.pdf
