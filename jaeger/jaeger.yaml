@@ -2,6 +2,7 @@ apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
   name: jaeger
+  # namespace: observability
 spec:
   strategy: production
   collector:
@@ -14,4 +15,14 @@ spec:
     type: elasticsearch
     options:
       es:
-        server-urls: http://elasticsearch.kube-logging.svc:9200
+        server-urls: https://quickstart-es-http:9200 👈 http elasticsearch service url
+        tls:
+          ca: /es/certificates/ca.crt
+  volumeMounts:
+    - name: certificates
+      mountPath: /es/certificates/
+      readOnly: true
+    volumes:
+      - name: certificates
+        secret:
+          secretName: quickstart-es-http-certs-public
