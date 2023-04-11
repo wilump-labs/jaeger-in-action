@@ -38,6 +38,9 @@ CRD(Custom Resource Definition) 설치 (`apiVersion: jaegertracing.io/v1`)
 kubectl create -f operator.yaml -n observability
 ```
 
+### storage 세팅
+[ElasticSearch 활용](./storage/elasticsearch) (or Cassandra)
+
 ### jaeger 적용
 production strategy: https://www.jaegertracing.io/docs/1.43/operator/#production-strategy
 
@@ -47,11 +50,21 @@ kubectl apply -f jaeger.yaml -n observability
 
 #### Deployment Strategy
 - AllInOne(default)
+  > This strategy is intended for development, testing, and demo purposes. 
+  >
+  > The main backend components, agent, collector and query service, are all packaged into a single executable which is configured (by default) to use in-memory storage. This strategy cannot be scaled beyond one replica.
+
   - 메모리 내 저장소를 사용하여 올인원 이미지(jaeger-agent , jaeger-collector , jaeger-query 및 Jaeger-UI 결합)를 단일 포드에 배포
   - 운영용이 아닌 개발/테스트/데모용 
+
 - Production
-  - 
+  > The production strategy is intended (as the name suggests) for production environments, where long term storage of trace data is important, as well as a more scalable and highly available architecture is required. Each of the backend components is therefore separately deployed.
+
+  - 운영용 배포 전략
+
 - Streaming
+  > The streaming strategy is designed to augment the production strategy by providing a streaming capability that effectively sits between the collector and the backend storage (Cassandra or Elasticsearch). This provides the benefit of reducing the pressure on the backend storage, under high load situations, and enables other trace post-processing capabilities to tap into the real time span data directly from the streaming platform (Kafka).
+  
   - 
 
 #### cluster role, cluster role binding 적용
@@ -70,7 +83,8 @@ kubectl create -f https://raw.githubusercontent.com/jaegertracing/jaeger-operato
     - https://istio.io/latest/docs/tasks/observability/distributed-tracing/overview/
   - https://twofootdog.tistory.com/74
     - https://twofootdog.tistory.com/67
-  - jaeger with golang: https://litaro.tistory.com/entry/Jaeger-with-Go
+  - jaeger with golang: **https://litaro.tistory.com/entry/Jaeger-with-Go**
+  - jaeger operator: **https://www.jaegertracing.io/docs/1.43/operator/**
 - jaeger-k8s: https://blog.karsei.pe.kr/m/50
 - jaeger-operator: https://blog.karsei.pe.kr/52
   - https://www.oss.kr/storage/app/public/oss/9f/ca/[Jaeger]%20Solution%20Guide.pdf
